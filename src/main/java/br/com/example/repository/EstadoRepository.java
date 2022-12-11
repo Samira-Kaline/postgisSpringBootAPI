@@ -15,5 +15,12 @@ public interface EstadoRepository extends JpaRepository<Estado,Integer>{
 
   @Query(value = "select  e.nome from Estado e where  st_perimeter(e.geometria) = :perimetro")
   public List<String> estadoPorPerimetro(Double perimetro);
+
+  @Query(value = "select count(*) from Municipio m, Estado e where within(m.geometria, e.geometria) = true and e.sigla = :UF")
+  public Double totalDeMunicipiosNoEstado(String UF);
+
+    
+  @Query(value ="select distance(geometria(ea.geometria), geometria(eb.geometria)) from Estado ea, Estado eb where ea.nome = :estadoA  and   eb.nome = :estadoB")
+  public Double distanciaEntreEstados(String estadoA, String estadoB);
 }
 
