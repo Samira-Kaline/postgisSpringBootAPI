@@ -44,4 +44,21 @@ public class MunicipioController {
         String result = repository.municipioSaoIguais(nome1,nome2);
         return !(result == null || result == "");
     }
+
+    @GetMapping("/quantidadeDeMunicipiosPorEstado/{sigla}")
+     public Integer quantidadeDeMunicipiosPorEstado(@PathVariable String sigla){
+        int result = repository.quantidadeDeMunicipiosPorEstado(sigla);
+        return result;
+    }
+    @GetMapping("/listarMunicipiosDoBrasil/{nome}")
+    public List<MunicipioVO> listarMunicipiosDoBrasil(){
+        List<MunicipioVO> result = repository.listarMunicipiosDoBrasil();
+        return result;
+    }
+    
+    @GetMapping("/listaDeMunicipiosVizinhos/{nome}")
+    public List<MunicipioVO> municipiosVizinhos(@PathVariable String nome){
+        List<MunicipioVO> result = repository.listaDeMunicipiosVizinhos(nome);
+        return result;
+    }
 }
