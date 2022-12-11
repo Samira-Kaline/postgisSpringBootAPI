@@ -20,4 +20,13 @@ public interface MunicipioRepository extends JpaRepository<Municipio, Integer>{
 
     @Query(value = "select m1.nome from Municipio m1,Municipio m2 where st_equals(m1.geometria,m2.geometria) = true and m1.nome = :nome1 and m2.nome = :nome2")
     public String municipioSaoIguais(String nome1,String nome2);
+
+    @Query(value = "select count(*) from Municipio m, Estado e where within(m.geometria, e.geometria) = true and e.sigla = :sigla")
+    public Integer quantidadeDeMunicipiosPorEstado(String sigla);
+   
+    @Query(value = "select new br.com.example.model.MunicipioVO(m.codigo, m.nome) from Municipio m")
+    List<MunicipioVO> listarMunicipiosDoBrasil();
+    
+    @Query(value = "select new br.com.example.model.MunicipioVO(mb.codigo,mb.nome) from Municipio ma, Municipio mb where touches(ma.geometria, mb.geometria) = true and ma.nome = :nome")
+    List<MunicipioVO> listaDeMunicipiosVizinhos(String nome);
 }
