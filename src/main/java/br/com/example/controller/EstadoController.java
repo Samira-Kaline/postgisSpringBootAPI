@@ -35,4 +35,15 @@ public class EstadoController {
         List<String> result = repository.estadoPorPerimetro(perimetro);
         return result;
     }
+
+    @GetMapping("/totalDeMunicipiosNoEstado/{UF}")
+    public Double listarMunicipiosDentroDeUmEstado(@PathVariable String UF){
+        double result = repository.totalDeMunicipiosNoEstado(UF);
+        return result;
+    }
+    @GetMapping("/distanciaEntreEstados/{estadoA}/{estadoB}")
+    public Double distanciaEntreEstados(@PathVariable String estadoA, @PathVariable String estadoB){
+        double result = repository.distanciaEntreEstados(estadoA, estadoB);
+        return result;
+    }
 }
